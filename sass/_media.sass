@@ -1,0 +1,199 @@
+@import "vars"
+
+/*==========  Desktop First  ==========*/
+
+// ≥1200px
++media-breakpoint-down(lg)
+  .main-menu
+    &__nav
+      li
+        a
+          padding: 0 13px
+    &__cta
+      display: none
+
+  .slider
+    .slide
+      height: 640px
+      &__content
+        h1
+          font-size: 35px
+          &:first-line
+            font-size: 55px
+
+  .slider-wrap
+    .slider-nav-container
+      .slider-nav
+        div
+          top: 320px
+
+// ≥992px
++media-breakpoint-down(md)
+  .topline
+    display: none
+
+  .sect
+    padding: 60px 0
+
+  .main-menu
+    display: none
+    &__nav
+      display: none
+
+  .mobile-menu
+    display: block
+
+  .slider
+    .slide
+      height: 520px
+      &__content
+        h1
+          font-size: 30px
+          margin-bottom: 10px
+          &:first-line
+            font-size: 50px
+        p
+          margin-bottom: 20px
+
+  .slider-wrap
+    .slider-nav-container
+      .slider-nav
+        div
+          top: 260px
+
+  .mission
+    &__info
+      margin-bottom: 50px
+
+  .reach
+    &__item
+      margin-top: 30px
+  
+  .event-big
+    margin:
+      right: 0
+      bottom: $gutter * 2
+  
+  .events-column
+    align-items: center
+    justify-content: center
+    width: 100%
+
+  .event-small
+    width: 100%
+    margin-bottom: $gutter + 10px
+    // height: 100%
+    // flex-direction: column
+
+
+// ≥768px
++media-breakpoint-down(sm)
+
+  .sect
+    padding: 50px 0
+
+  .slider
+    .slide
+      height: 450px
+      &__content
+
+        h1
+          font-size: 25px
+          margin-bottom: 10px
+          &:first-line
+            font-size: 40px
+          p
+            margin-bottom: 20px
+            font-size: 16px
+
+    .slider-wrap
+      .slider-nav-container
+        .slider-nav
+          div
+            top: 225px
+
+  .mission
+    &__img-bottom
+      &:first-child
+        margin-bottom: 15px
+
+  .service
+    &__item
+      margin-bottom: 40px
+  
+  .volunteer
+    &__title
+      font-size: 25px
+    p
+      font-size: 16px
+
+// ≥576px
++media-breakpoint-down(xs)
+
+  .sect
+    padding:
+    right: 20px
+    left: 20px
+
+  .btn
+    font-size: 11px
+    padding: 8px 20px
+
+  .slider
+    .slide
+      height: 380px
+      &__content
+        padding: 0 45px
+        h1
+          font-size: 23px
+          &:first-line
+            font-size: 35px
+          p
+            font-size: 14px
+
+  .slider-wrap
+    .slider-nav-container
+      .slider-nav
+        div
+          top: 165px
+
+  .mission
+    &__grid
+      width: 340px
+
+  .count
+    margin-right: 10px
+    &:nth-child(1)
+      margin-bottom: 10px
+    &:nth-child(2)
+      margin-bottom: 10px
+
+  .event-big
+    height: 520px
+    &__content
+      padding: 40px
+    &__header
+      font-size: 30px
+      margin-bottom: 20px
+    p
+      margin-bottom: 15px
+    ul
+      margin-bottom: 25px
+
+  .event-small
+    flex-direction: column
+    height: 100%
+  
+/*==========  Mobile First  ==========*/
+
+// ≤576px
++media-breakpoint-up(sm)
+
+// ≤768px
++media-breakpoint-up(md)
+
+// ≤992px
++media-breakpoint-up(lg)
+
+// ≤1200px
++media-breakpoint-up(xl)

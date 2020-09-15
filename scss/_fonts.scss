@@ -1,0 +1,10 @@
+@import '_mixins/font-face';
+
+@include font-face('poppins-g', '../fonts/PoppinsRegular/PoppinsRegular');
+@include font-face('poppins-g', '../fonts/PoppinsMedium/PoppinsMedium', 500);
+@include font-face(
+  'poppins-g',
+  '../fonts/PoppinsSemiBold/PoppinsSemiBold',
+  600
+);
+@include font-face('poppins-g', '../fonts/PoppinsBold/PoppinsBold', bold);
