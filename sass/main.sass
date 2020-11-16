@@ -4,11 +4,11 @@
 
 
 ::placeholder
-	color: #666
+	color: #666666
 
 ::selection
-	background-color: $yellow
 	color: $text-dark
+	background-color: $yellow
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -30,18 +30,68 @@ time, mark, audio, video
 	font: inherit
 	vertical-align: baseline
 
+// PRELOADER STYLES
+.preloader
+	position: fixed
+	top: 0
+	left: 0
+	bottom: 0
+	right: 0
+	background-color: $text-dark
+	z-index: 100
+@mixin opacity($opacity)
+	opacity: $opacity / 100
+	filter: alpha(opacity=$opacity)
+
+.pulse
+	position: relative
+	left: 50%
+	top: 50vh
+	margin:
+		left: -40px
+		top: -40px
+	&:before, &:after
+		content: ''
+		border: 5px solid $accent
+		width: 80px
+		height: 80px
+		border-radius: 500px
+		position: absolute
+	&:before
+		animation: pulse-outer .8s ease-in infinite
+	&:after
+		animation: pulse-inner .8s linear infinite
+
+@keyframes pulse-outer
+	0%
+		@include opacity(100)
+	50%
+		@include opacity(50)
+	100%
+		@include opacity(0)
+
+@keyframes pulse-inner
+	0%
+		transform: scale(0)
+		@include opacity(0)
+	100%
+		transform: scale(1)
+		@include opacity(100)
+
+// END OF PRELOADER STYLES
+
 html
 	scroll-behavior: smooth
 
 body
-	font-size: 16px
-	min-width: 320px
 	position: relative
-	line-height: 1.5
 	font-family: $default-font
-	font-weight: 400
+	min-width: 320px
+	line-height: 1.5
+	font-weight: 300
 	overflow-x: hidden
 	color: $text
+	font-size: 16px
 	transition: $transition
 	input, textarea
 		border: #666 1px solid
@@ -84,14 +134,26 @@ h3, h4, h5, h6
 	font-weight: 600
 	color: $text-dark
 
+h1
+	font-size: 40px
+
 h2
 	font-size: 36px
+
+.headline
+	margin-top: 20px
+	margin-bottom: 10px
+	font-size: 25px
+	text-transform: uppercase
+
+p
+	padding: 8px 0
 
 a
 	color: $accent
 	&:hover, &:active
 		text-decoration: none
-		color: darken($accent, 50%)
+		color: darken($accent, 20%)
 
 span.accent
 	color: $accent
@@ -100,6 +162,10 @@ div.bold
 	font-size: 20px
 	font-weight: 600
 	color: $text-dark
+
+.bold
+	font-weight: bold
+	
 
 // TITLE BOX
 .title-box
@@ -114,15 +180,19 @@ div.bold
 
 .title
 	text-transform: uppercase
+	h3
+		font-size: 25px
 	&--white
 		color: #fff
+	&--secondary
+		font-size: 35px
+
 
 div.subtitle
 	display: block
 	color: $accent
 	font-size: 18px
 	text-transform: uppercase
-	// margin-bottom: 12px
 
 // SECTION SETTINGS
 .sect
@@ -131,9 +201,15 @@ div.subtitle
 	&--dark
 		background-color: $dark-bg
 		color: #fff
-	
+
 	&--grey
 		background-color: $grey-bg
+
+	&--accent
+		background-color: $accent
+		color: $text-dark
+
+
 
 // BUTTON
 .btn
@@ -180,6 +256,7 @@ div.subtitle
 		background-color: darken($accent, 5%)
 		&::after
 			opacity: .32
+	
 
 .main-header
 	text-transform: uppercase
@@ -212,6 +289,7 @@ div.subtitle
 .main-menu
 	width: 100%
 	height: 100px
+	position: relative
 	.container
 		height: 100%
 		display: flex
@@ -225,9 +303,22 @@ div.subtitle
 	&__nav
 		display: block
 		position: relative
+		ul.sf-menu
+			position: static
+			float: none
+			a
+				border-left: none
+				border-top: none
+			ul
+				li
+					background: none
+
+		li.sfHover, .sf-menu li:hover
+			background: none
 		li
 			display: inline-block
 			margin-right: -4px
+			background: none
 			&.active
 				a
 					color: $accent
@@ -237,9 +328,9 @@ div.subtitle
 					color: $accent
 					text-decoration: none
 			a
-				font-size: 16px
 				color: $text-dark
 				font-weight: 500
+				font-size: 16px
 				padding: 0 14px
 				display: block
 				transition: $transition
@@ -253,23 +344,29 @@ div.subtitle
 								color: #ffffff
 								&:hover
 									color: $text-dark
+							&.active-sub
+								a
+									color: $text-dark
 			ul.dropdown
 				display: none
-				width: 180px
+				width: 270px
 				background-color: $accent
 				padding: 15px 10px
 				margin-top: 3px
 				position: absolute
-				transition: $transition
+				// transition: $transition
 				border-radius: $radius
-				z-index: 99
+				// z-index: 99
 			li
 				display: block
 				margin-top: 9px
+	
 				a
 					color: #fff
 					&:hover
 						color: $text-dark
+	
+				
 
 // MOBILE NAVIGATION
 .mobile-menu
@@ -311,7 +408,6 @@ div.subtitle
 			width: 100%
 			li
 				width: 100%
-				// padding: 10px 0
 				&:last-child
 					margin-bottom: 0
 				&.item-children > a:before
@@ -346,7 +442,6 @@ div.subtitle
 						margin-bottom: 5px
 						&:last-child
 							margin-bottom: 0
-						// padding: 5px 0
 
 		li
 			display: block
@@ -365,7 +460,6 @@ div.subtitle
 	float: right
 	width: 28px
 	height: 28px
-	// margin-top: 14px
 
 	span:after, span:before
 		content: ""
@@ -511,7 +605,6 @@ div.subtitle
 
 // Intro
 .mission
-
 	.title-box
 		margin-bottom: 25px
 
@@ -561,12 +654,12 @@ div.subtitle
 		img
 			border-radius: $radius
 			box-shadow: 3px 3px 9px 1px rgba(0, 0, 0, .55)
-	
+
 	&__img-top
 		margin-bottom: 19px
 
 
-// REACH SECTION 
+// REACH SECTION
 .reach
 	&__item
 		border: 1px solid #d3d0d2
@@ -613,7 +706,7 @@ div.subtitle
 		padding: 33px 21px
 		margin: 10px 0
 		height: auto
-	
+
 		h4
 			font-size: 18px
 			text-transform: uppercase
@@ -694,14 +787,14 @@ div.subtitle
 					margin-right: 10px
 					font-size: 18px
 					color: $accent
-			
+
 .events-column
 	height: 100%
 	width: 80%
 	display: flex
 	flex-direction: column
 	justify-content: space-between
-						
+
 .event-small
 	height: 170px
 	width: 500px
@@ -780,10 +873,597 @@ div.subtitle
 		font-size: 18px
 		font-weight: 500
 		margin-bottom: $gutter * 2
+
+
+// PARTNER SECTION
+.s-partner
+	position: relative
+	background-position: center center
+	background-size: cover
+	&::before
+		position: absolute
+		content: ''
+		top: 0
+		left: 0
+		height: 100%
+		width: 100%
+		background-color: #fff
+		opacity: .85
+
+.partners
+	.partner
+		height: 100%
+		display: flex
+		margin: auto
+	.owl-stage
+		display: flex
+	.owl-item
+		img
+			max-width: 100%
+			width: auto
+			display: inline-block
+			margin: auto
+	.owl-nav
+		position: absolute
+		top: 0
+		width: 100%
+		z-index: 2
+		> button
+			position: absolute
+			top: 20px
+			transition: $transition
+
+			&:hover
+				opacity: 0.6
+			.fa
+				color: $text-dark
+				font-size: 30px
+			&.owl-prev
+				left: -60px
+				padding: 0 10px !important
+			&.owl-next
+				right: -60px
+				padding: 0 10px !important
+
+// FOOTER
+.main-footer
+	background-color: $dark-bg
+	padding: 5% 0
+	color: $light-gray
+	font-size: 14px
+
+	&__logo
+		width: 175px
+		height: auto
+		~ p
+			font-size: 13px
+			margin: 10px 0 10px
+	&__column
+		margin: 15px 0
+
+	&__social
+		margin-top: 25px
+
+	&__socnav
+		margin: auto
+		ul,li
+			margin: 0
+			padding: 0
+			list-style-type: none
+			display: inline-block
+			margin-right: 5px
+		a
+			color: $text-dark
+			font-size: 16
+			display: block
+			background-color: $light-gray
+			width: 38px
+			height: 38px
+			text-align: center
+			line-height: 38px
+			border-radius: 10em
+			transition: background-color .25s ease
+			// margin: 15px 0
+			&:hover
+				background-color: rgba(255,255,255,.4)
+
+	&__menu
+		ul
+			li
+				a
+					color: $light-gray
+					transition: $transition
+					display: inline-block
+					padding: 5px 0 5px 20px
+					position: relative
+					&:hover, &:focus
+						color: $accent
+						&::before
+							color: $accent
+					&::before
+						position: absolute
+						content: '\f138'
+						font-family: fontawesome
+						left: 0
+						transition: $transition
+				&.active
+					a
+						color: $accent
+						&::before
+							color: $accent
+	&__adr
+		position: relative
+		font-size: 15px
+		padding-left: 20px
+		margin: 0 0 20px
+		.fa
+			position: absolute
+			left: 0
+			top: 13px
+			color: $accent
+
+	&__map
+		max-height: 180px
+
+
+// Back to top button
+.top
+	position: fixed
+	bottom: 25px
+	right: -100px
+	background-color: $accent
+	color: $text-dark
+	z-index: 12
+	border-radius: 10em
+	font-size: 26px
+	height: 50px
+	width: 50px
+	text-align: center
+	line-height: 50px
+	cursor: pointer
+	transition: $transition
+	opacity: 0.5
+	i
+		line-height: 0
+	&:hover
+		color: $light-gray
+		background-color: $accent
+		opacity: 1
+	&.active
+		right: a25px
+
+// SECTION HERO
+.sect-hero
+	height: 500px
+	min-height: 300px
+	width: 100%
+	background-position: center center
+	background-size: cover
+	position: relative
+	&__bg
+		position: absolute
+		width: 100%
+		height: 100%
+		top: 0
+		left: 0
+		&::before
+			content: ' '
+			background-color: $text-dark
+			position: absolute
+			top: 0
+			left: 0
+			right: 0
+			bottom: 0
+			width: 100%
+			height: 100%
+			opacity: 55%
+
+	.title-wrap
+		position: absolute
+		top: 80%
+		left: 50%
+		transform: translate(-50%, -50%)
+		color: white
+		text-align: center
+		.page-title
+			text-align: center
+			text-transform: capitalize
+			font-size: 40px
+			font-weight: 600
+			line-height: 1.2
+			margin-bottom: 15px
+		.breadcrumb
+			a
+				color: $light-gray
+				transition: $transition
+				&:hover, &:focus
+					text-decoration: underline
+
+
+// PAGE WITH SIDEBAR
+.page-side
+	padding: 50px 0
+	ul
+		padding-left: 12px
+		li
+			list-style: disc
+			// padding-left: 10px
+	ul.homeless
+		li
+			margin: 14px 0
+			span.bold
+				font-weight: bold
+	.post
+		color: $text-dark
+		padding-right: 20px
+		h1
+			color: $accent
+			margin-bottom: 10px
+		h2.headline
+			// margin: 10px 10px
+		blockquote
+			padding: 20px 0
+			margin: 20px 0
+			font-size: 20px
+			font-weight: 500
+			border:
+				top: $accent 2px solid
+				bottom: $accent 2px solid
+		.program
+			margin: 25px 0
+			padding-bottom: 20px
+			&__header
+				font-weight: bold
+		.btn
+			margin-top: 20px
+			db
+
+	aside
+		position: relative
+		.btn
+			display: block
+			width: 200px
+			margin: 20px auto 0
+		img
+			display: block
+			margin: 10px auto
+
+		h2
+			font-size: 20px
+			text-transform: uppercase
+		.service-block
+			&__header
+				margin-top: 20px
+				h3
+					text-align: center
+					padding: 5px 2px
+					color: $light-gray
+					text-transform: uppercase
+					background-color: $accent
+			.cert-iii
+				font-size: 25px
+				font-weight: 600
+		.vision-box
+			.headline
+				color: $yellow
+			margin-bottom: 30px
+			text-align: center
+			padding: 20px
+			font-weight: 500
+			background-color: $text-dark
+			color: $light-gray
+			border-radius: 10px
+
+.likely
+	margin-top: 40px
+	display: block
+
+// Stats
+.statistics
+	color: #fff
+
+.stat
+	text-align: center
+	&__circle
+		width: 200px
+		height: 200px
+		background-color: $light-gray
+		border-radius: 50%
+		display: block
+		margin: auto
+	&__num
+		line-height: 200px
+		font-weight: 600
+		font-size: 60px
+		color: $text-dark
+	&__info
+		margin-top: 30px
+		font-size: 21px
+		padding: 0 10px
+
+// Testimonials
+.testimonials
+	color: $light-gray
+	background-size: cover
+	background-position: center center
+	position: relative
+	&::before
+		content: ''
+		position: absolute
+		top: 0
+		left: 
+		width: 100%
+		height: 100%
+		background-color: $dark-bg
+		opacity: .7
+	.quotes
+		position: absolute
+		width: 100%
+		&::before, &::after
+			content: ',,'
+			position: absolute
+			top: 10px
+			font-size: 54px
+			color: $light-gray
+			font-family: 'Times New Roman', serif
+			font-weight: bold
+			line-height: 0
+			transform: rotate(180deg)
+			display: block
+		&::before
+			top: 40px
+			left: -60px
+		&::after
+			right: -60px
+			transform: rotate(0)
+	.review
+		// margin-top: 20px
+		text-align: center
+		&__header
+			// font-style: italic
+			font-size: 30px
+			font-weight: bold
+			color: $accent
+		&__text
+			// color: 
+			font-weight: 500
+			padding: 0 10px
+		&__name
+			font-weight: 600
+			color: $yellow
+			margin-top: 5px
+			// text-align: right
+
+.cta
+	text-align: center
+	&__text
+		font-size: 30px
+		color: $text-dark
+		margin-bottom: 30px
+	.btn
+		display: block
+		margin:
+			right: 40px
+			left: 40px
+			top: 28px
+
+// Referral 
+.refer
+	.card
+		margin-bottom: 30px
+		&-header
+			background-color: $accent
+			color: $light-gray
+
+
+// Contact
+.contact
+	text-align: center
+	&__img
+		img
+			width: 150px
+			display: block
+			margin: auto
+	&__data
+		margin-top: 30px
+		font-size: 25px
+		font-weight: 600
+		color: $text-dark
+
+// Gallery
+.masonry-container
+	padding: 0
+
+.item
+	img
+		width: 100%
+
+// Events
+.table
+	font-size: 14px
+	thead
+		text-transform: uppercase
+		font-size: 16px
+		font-weight: 500
+
+
+// Accordion
+.accordion 
+	.accordion-item 
+		border-bottom: 1px solid $text-dark
+		button[aria-expanded='true'] 
+			border-bottom: 1px solid $accent
+		
 	
+	.accordion-btn 
+		position: relative
+		display: block
+		text-align: left
+		width: 100%
+		padding: 16px 0
+		color: $text-dark
+		font-weight: 500
+		border: none
+		background: none
+		outline: none
+		&:hover, &:focus 
+			cursor: pointer
+			color: $accent
+			&::after 
+				cursor: pointer
+				color: $accent
+				border: 1px solid $accent
+			
+		
+		.accordion-title 
+			padding: 16px 20px 16px 0
+		
+		.icon 
+			display: inline-block
+			position: absolute
+			top: 18px
+			right: 0
+			width: 22px
+			height: 22px
+			border: 1px solid
+			border-radius: 22px
+			&::before 
+				display: block
+				position: absolute
+				content: ''
+				top: 9px
+				left: 5px
+				width: 10px
+				height: 2px
+				background: currentColor
+			
+			&::after 
+				display: block
+				position: absolute
+				content: ''
+				top: 5px
+				left: 9px
+				width: 2px
+				height: 10px
+				background: currentColor
+			
+		
 	
+	button[aria-expanded='true'] 
+		color: $accent
+		.icon 
+			&::after 
+				width: 0
+			
+		
+		+ .accordion-content 
+			opacity: 1
+			max-height: 400px
+			transition: all 200ms linear
+			will-change: opacity, max-height
+		
 	
+	.accordion-content 
+		opacity: 0
+		max-height: 0
+		overflow: hidden
+		transition: opacity 200ms linear, max-height 200ms linear
+		will-change: opacity, max-height
+		font-weight: 300
+		color: $text-dark
+		font-size: 15px
+		p
+			margin: 15px 0
+		ul
+			margin-bottom: 20px
 	
-	
-	
-@import "media" // Always at the end
+// Committee & staff
+.committee
+	.title-box
+	&__member
+		text-align: center
+		margin-bottom: 30px
+		img
+			display: block
+			margin: auto
+			border-radius: 10%
+	&__name
+		font-size: 25px
+		font-weight: 300
+		color: $text-dark
+		margin-top: 10px
+		text-transform: capitalize
+
+	&__position
+		text-transform: uppercase
+		font-size: 18px
+
+.staff
+	&__box
+		text-align: center
+		margin-bottom: 25px
+		color: $text-dark
+		text-transform: uppercase
+	&__branch
+		display: block
+		margin: auto
+		font-size: 30px
+		padding-bottom: 10px
+		border-bottom: 2px solid $text-dark
+	&__name
+		margin-top: 15px
+		font-weight: 300
+
+
+// Resourses
+.grid-container
+	&::after
+		content: ''
+		display: block
+		clear: both
+
+.grid-item
+	margin-bottom: 10px
+
+.resource
+	position: relative
+	width: 260px
+	height: 160px
+	float: left
+	color: $light-gray
+	cursor: pointer
+	transition: $transition
+	background-size: cover
+	background-position: center center
+	border-radius: 10px
+	&:hover
+		color: $light-gray
+		&::before
+			 opacity: .85
+	&::before
+		content: ''
+		border-radius: 10px
+		position: absolute
+		background-color: $green
+		height: 100%
+		width: 100%
+		top: 0
+		left: 0
+		transition: $transition
+		// z-index: -1
+		opacity: .75
+	&__content
+		text-align: center
+		line-height: 1.2
+		z-index: 14
+		font-size: 18px
+		font-weight: 500
+		position: absolute
+		width: 80%
+		top: 50%
+		left: 50%
+		transform: translate(-50%, -50%)
+
+
+
+@import "media"

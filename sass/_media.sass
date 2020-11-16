@@ -89,6 +89,21 @@
 // ≥768px
 +media-breakpoint-down(sm)
 
+	.contact
+		margin-bottom: 40px
+
+	.testimonials
+		.quotes
+			width: 90%
+			&::before
+				left: -30px
+
+	aside
+		margin-top: 40px
+	
+	.stat
+		margin-top: 50px
+
   .sect
     padding: 50px 0
 
@@ -125,15 +140,20 @@
     &__title
       font-size: 25px
     p
-      font-size: 16px
+    	font-size: 16px
 
 // ≥576px
 +media-breakpoint-down(xs)
 
-  .sect
-    padding:
-    right: 20px
-    left: 20px
+	.testimonials
+		.quotes
+			display: none
+
+	.sect-hero
+		.title-wrap
+			top: 70%
+			left: 50%
+			transform: translate(-50%, -50%)
 
   .btn
     font-size: 11px
@@ -183,6 +203,14 @@
   .event-small
     flex-direction: column
     height: 100%
+
+  .partners
+    .owl-nav
+      > button
+        &.owl-prev
+          left: 0
+        &.owl-next
+          right: 0
   
 /*==========  Mobile First  ==========*/
 
